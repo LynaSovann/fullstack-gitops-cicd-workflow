@@ -1,0 +1,6 @@
+services:
+  app:
+    build:
+      context: ./app
+    image: nextjs-fullstack
+    container_name: nextjs-fullstack

@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  test:
+    name: "Testing"
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "The workflow Started"
+
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Set Node 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Test Node
+        run: node -v
