@@ -8,8 +8,8 @@ on:
     branches: [dev]
 
 env:
-  SONAR_TOKEN: sqp_5c4a5f5f512fa10b024ac64637ed817567d7cc65
-  SONAR_HOST_URL: http://104.248.145.17:9000
+  SONAR_TOKEN: sqp_a5bfb5119d550db3571b057170e6bd3be85a6fa4
+  SONAR_HOST_URL: http://188.166.188.149:9000/
   SONAR_PROJECT_KEY: nextjs-fullstack
 
 jobs:
