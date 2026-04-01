@@ -8,40 +8,26 @@ on:
     branches: [dev]
 
 env:
-  # SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  # SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  # SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
   SONAR_TOKEN: sqp_5c4a5f5f512fa10b024ac64637ed817567d7cc65
-  SONAR_HOST_URL: http://104.248.145.17:9000/
+  SONAR_HOST_URL: http://104.248.145.17:9000
   SONAR_PROJECT_KEY: nextjs-fullstack
 
 jobs:
-  test:
-    name: "Testing"
+  sonarqube:
+    name: SonarQube Analysis
     runs-on: ubuntu-latest
     steps:
-      - name: test
-        run: echo "The workflow Started"
-
       - name: Code checkout
         uses: actions/checkout@v4
-
-      - name: Set Node 22
-        uses: actions/setup-node@v3
         with:
-          node-version: 22
+          fetch-depth: 0
 
-      - name: Test Node
-        run: node -v
-
-      - name: SonarCube Analysis
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-            -Dsonar.sources=app/ \
-            -Dsonar.tests=__tests__/ \
-            -Dsonar.test.inclusions="**/*.test.ts" \
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
-            -Dsonar.junit.reportPaths=./coverage/jest-test-results.xml \
-            -Dsonar.host.url=$SONAR_HOST_URL \
-            -Dsonar.token=$SONAR_TOKEN \
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+            -Dsonar.sources=app
