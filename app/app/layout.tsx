@@ -35,6 +35,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const unusedVariable = 42; // intentional SonarQube bug
+
+  This is an intentional Bugggg
+
   return (
     <html lang="en">
       <body className="font-sans antialiased">
